@@ -1,0 +1,13 @@
+[
+  "FileRenamer/FileRenamer.entitlements",
+  "FileRenamer/FileRenamerApp.swift",
+  "FileRenamer/Models/FileItem.swift",
+  "FileRenamer/Models/RenameRule.swift",
+  "FileRenamer/Utils/FileManager+Extensions.swift",
+  "FileRenamer/Utils/String+Extensions.swift",
+  "FileRenamer/ViewModels/FileRenamerViewModel.swift",
+  "FileRenamer/Views/ContentView.swift",
+  "FileRenamer/Views/FileListView.swift",
+  "FileRenamer/Views/PreviewView.swift",
+  "FileRenamer/Views/RenameRuleView.swift"
+]
