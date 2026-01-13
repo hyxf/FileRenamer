@@ -39,6 +39,7 @@ struct RenameRule: Equatable {
     var insertText: String = ""
     var insertPosition: Int = 0
     var applyToExtension: Bool = false
+    var isRegex: Bool = false // 新增：是否启用正则
     
     func apply(to filename: String) -> String {
         let nameWithoutExt = (filename as NSString).deletingPathExtension
@@ -78,7 +79,21 @@ struct RenameRule: Equatable {
             
         case .removeText:
             if !removeText.isEmpty {
-                newName = newName.replacingOccurrences(of: removeText, with: "")
+                if isRegex {
+                    // 正则表达式模式
+                    // 预先检查正则是否有效，避免运行时 Crash
+                    if (try? NSRegularExpression(pattern: removeText)) != nil {
+                        newName = newName.replacingOccurrences(
+                            of: removeText,
+                            with: "",
+                            options: .regularExpression,
+                            range: nil
+                        )
+                    }
+                } else {
+                    // 普通文本模式
+                    newName = newName.replacingOccurrences(of: removeText, with: "")
+                }
             }
             
         case .insertText:
@@ -102,7 +117,6 @@ struct RenameRule: Equatable {
     
     func apply(to filename: String, index: Int) -> String {
         if type == .sequence {
-            // 修复：删除了此处未使用的 nameWithoutExt 变量
             let ext = (filename as NSString).pathExtension
             
             let number = startNumber + index

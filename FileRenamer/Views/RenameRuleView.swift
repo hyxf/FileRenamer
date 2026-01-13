@@ -196,11 +196,26 @@ struct RenameRuleView: View {
     }
     
     private var removeTextView: some View {
-        VStack(alignment: .leading, spacing: 6) {
-            Text("删除内容").font(.caption).foregroundColor(.secondary)
-            TextField("输入要删除的文本", text: $rule.removeText)
-                .textFieldStyle(.roundedBorder)
-                .onChange(of: rule.removeText) { _ in onRuleChange() }
+        VStack(alignment: .leading, spacing: 12) {
+            VStack(alignment: .leading, spacing: 6) {
+                Text("删除内容").font(.caption).foregroundColor(.secondary)
+                TextField(rule.isRegex ? "输入正则表达式" : "输入要删除的文本", text: $rule.removeText)
+                    .textFieldStyle(.roundedBorder)
+                    .onChange(of: rule.removeText) { _ in onRuleChange() }
+            }
+            
+            Toggle("使用正则表达式", isOn: $rule.isRegex)
+                .toggleStyle(.switch)
+                .controlSize(.small)
+                .font(.system(.subheadline, design: .rounded))
+                .onChange(of: rule.isRegex) { _ in onRuleChange() }
+            
+            if rule.isRegex {
+                Text("示例: \\d+ 删除数字, \\[.*?\\] 删除中括号内容")
+                    .font(.caption2)
+                    .foregroundColor(.secondary)
+                    .fixedSize(horizontal: false, vertical: true)
+            }
         }
     }
     

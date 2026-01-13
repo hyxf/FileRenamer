@@ -1,6 +1,4 @@
 [
-  ".gitignore",
-  "FileRenamer.entitlements",
   "FileRenamerApp.swift",
   "Models/FileItem.swift",
   "Models/RenameRule.swift",
