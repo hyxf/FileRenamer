@@ -208,7 +208,7 @@ class FileRenamerViewModel: ObservableObject {
         }
     }
     
-    nonisolated deinit {
+    deinit {
         let urls = accessedURLs
         for url in urls {
             url.stopAccessingSecurityScopedResource()
