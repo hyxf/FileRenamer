@@ -20,7 +20,7 @@
 
 --elseposition same-line
 --guardelse same-line
---emptyvoidtype void
+--voidtype void
 
 --exclude Pods
 --exclude Carthage
