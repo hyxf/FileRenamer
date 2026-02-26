@@ -1,0 +1,24 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "SwiftFormat: Format Project",
+      "type": "shell",
+      "command": "swiftformat .",
+      "problemMatcher": [],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      }
+    },
+    {
+      "label": "SwiftFormat: Format Current File",
+      "type": "shell",
+      "command": "swiftformat ${file}",
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "never"
+      }
+    }
+  ]
+}

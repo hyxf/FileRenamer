@@ -1,0 +1,44 @@
+{
+    // =========================
+    // 基础编辑体验
+    // =========================
+    "editor.tabSize": 4,
+    "editor.insertSpaces": true,
+    "editor.detectIndentation": false,
+    "editor.renderWhitespace": "boundary",
+    "editor.rulers": [
+        100
+    ],
+    // =========================
+    // Swift 专用
+    // =========================
+    "[swift]": {
+        "editor.formatOnSave": false,
+        "editor.defaultFormatter": null
+    },
+    // =========================
+    // 禁用 VS Code 自己的“伪格式化”
+    // =========================
+    "editor.formatOnSave": false,
+    "editor.codeActionsOnSave": {
+        "source.fixAll": "never"
+    },
+    // =========================
+    // 文件 & 性能
+    // =========================
+    "files.trimTrailingWhitespace": true,
+    "files.insertFinalNewline": true,
+    "files.exclude": {
+        "**/.build": true,
+        "**/DerivedData": true
+    },
+    // =========================
+    // 搜索排除（非常重要）
+    // =========================
+    "search.exclude": {
+        "**/DerivedData": true,
+        "**/.build": true,
+        "**/Pods": true,
+        "**/Carthage": true
+    }
+}
