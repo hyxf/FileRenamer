@@ -8,7 +8,7 @@ import SwiftUI
 struct RenameRuleView: View {
     @Binding var rule: RenameRule
     let onRuleChange: () -> Void
-    
+
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 16) {
@@ -18,7 +18,7 @@ struct RenameRuleView: View {
                         .font(.system(.caption, design: .rounded))
                         .fontWeight(.bold)
                         .foregroundColor(.secondary)
-                    
+
                     // 原生 Picker
                     Picker("", selection: $rule.type) {
                         ForEach(RenameRuleType.allCases) { type in
@@ -36,9 +36,8 @@ struct RenameRuleView: View {
                 .background(
                     RoundedRectangle(cornerRadius: 10)
                         .fill(Color(nsColor: .controlBackgroundColor))
-                        .shadow(color: .black.opacity(0.05), radius: 2, y: 1)
-                )
-                
+                        .shadow(color: .black.opacity(0.05), radius: 2, y: 1))
+
                 // 参数设置卡片
                 VStack(alignment: .leading, spacing: 12) {
                     Label("参数设置", systemImage: "slider.horizontal.3")
@@ -46,16 +45,15 @@ struct RenameRuleView: View {
                         .fontWeight(.bold)
                         .foregroundColor(.secondary)
                         .padding(.bottom, 4)
-                    
+
                     ruleContent
                 }
                 .padding(16)
                 .background(
                     RoundedRectangle(cornerRadius: 10)
                         .fill(Color(nsColor: .textBackgroundColor))
-                        .shadow(color: .black.opacity(0.05), radius: 2, y: 1)
-                )
-                
+                        .shadow(color: .black.opacity(0.05), radius: 2, y: 1))
+
                 // 扩展名设置
                 VStack(alignment: .leading) {
                     Toggle("应用于扩展名", isOn: $rule.applyToExtension)
@@ -65,7 +63,7 @@ struct RenameRuleView: View {
                         .onChange(of: rule.applyToExtension) { _ in
                             onRuleChange()
                         }
-                    
+
                     Text("开启后将同时修改文件后缀名")
                         .font(.caption2)
                         .foregroundColor(.secondary)
@@ -77,7 +75,7 @@ struct RenameRuleView: View {
             .padding(16)
         }
     }
-    
+
     @ViewBuilder
     private var ruleContent: some View {
         switch rule.type {
@@ -97,9 +95,9 @@ struct RenameRuleView: View {
             insertTextView
         }
     }
-    
+
     // MARK: - Rule Subviews
-    
+
     private var replaceView: some View {
         Group {
             VStack(alignment: .leading, spacing: 6) {
@@ -108,7 +106,7 @@ struct RenameRuleView: View {
                     .textFieldStyle(.roundedBorder)
                     .onChange(of: rule.findText) { _ in onRuleChange() }
             }
-            
+
             VStack(alignment: .leading, spacing: 6) {
                 Text("替换为").font(.caption).foregroundColor(.secondary)
                 TextField("输入替换后的文本", text: $rule.replaceText)
@@ -117,7 +115,7 @@ struct RenameRuleView: View {
             }
         }
     }
-    
+
     private var prefixView: some View {
         VStack(alignment: .leading, spacing: 6) {
             Text("前缀文本").font(.caption).foregroundColor(.secondary)
@@ -126,7 +124,7 @@ struct RenameRuleView: View {
                 .onChange(of: rule.prefixText) { _ in onRuleChange() }
         }
     }
-    
+
     private var suffixView: some View {
         VStack(alignment: .leading, spacing: 6) {
             Text("后缀文本").font(.caption).foregroundColor(.secondary)
@@ -135,7 +133,7 @@ struct RenameRuleView: View {
                 .onChange(of: rule.suffixText) { _ in onRuleChange() }
         }
     }
-    
+
     private var sequenceView: some View {
         Group {
             VStack(alignment: .leading, spacing: 6) {
@@ -144,30 +142,30 @@ struct RenameRuleView: View {
                     .textFieldStyle(.roundedBorder)
                     .onChange(of: rule.prefixText) { _ in onRuleChange() }
             }
-            
+
             VStack(alignment: .leading, spacing: 6) {
                 Text("分隔符").font(.caption).foregroundColor(.secondary)
                 TextField("_", text: $rule.separator)
                     .textFieldStyle(.roundedBorder)
                     .onChange(of: rule.separator) { _ in onRuleChange() }
             }
-            
+
             HStack {
                 VStack(alignment: .leading) {
                     Text("起始: \(rule.startNumber)")
                         .font(.caption)
                         .foregroundColor(.secondary)
-                    Stepper("", value: $rule.startNumber, in: 0...9999)
+                    Stepper("", value: $rule.startNumber, in: 0 ... 9999)
                         .labelsHidden()
                 }
-                
+
                 Spacer()
-                
+
                 VStack(alignment: .leading) {
                     Text("位数: \(rule.digits)")
                         .font(.caption)
                         .foregroundColor(.secondary)
-                    Stepper("", value: $rule.digits, in: 1...6)
+                    Stepper("", value: $rule.digits, in: 1 ... 6)
                         .labelsHidden()
                 }
             }
@@ -175,13 +173,13 @@ struct RenameRuleView: View {
             .onChange(of: rule.digits) { _ in onRuleChange() }
         }
     }
-    
+
     private var caseChangeView: some View {
         VStack(alignment: .leading, spacing: 10) {
             Text("选择转换模式")
                 .font(.caption)
                 .foregroundColor(.secondary)
-            
+
             Picker("", selection: $rule.caseType) {
                 ForEach(CaseType.allCases) { type in
                     Text(type.rawValue).tag(type)
@@ -194,7 +192,7 @@ struct RenameRuleView: View {
             }
         }
     }
-    
+
     private var removeTextView: some View {
         VStack(alignment: .leading, spacing: 12) {
             VStack(alignment: .leading, spacing: 6) {
@@ -203,13 +201,13 @@ struct RenameRuleView: View {
                     .textFieldStyle(.roundedBorder)
                     .onChange(of: rule.removeText) { _ in onRuleChange() }
             }
-            
+
             Toggle("使用正则表达式", isOn: $rule.isRegex)
                 .toggleStyle(.switch)
                 .controlSize(.small)
                 .font(.system(.subheadline, design: .rounded))
                 .onChange(of: rule.isRegex) { _ in onRuleChange() }
-            
+
             if rule.isRegex {
                 Text("示例: \\d+ 删除数字, \\[.*?\\] 删除中括号内容")
                     .font(.caption2)
@@ -218,7 +216,7 @@ struct RenameRuleView: View {
             }
         }
     }
-    
+
     private var insertTextView: some View {
         Group {
             VStack(alignment: .leading, spacing: 6) {
@@ -227,12 +225,12 @@ struct RenameRuleView: View {
                     .textFieldStyle(.roundedBorder)
                     .onChange(of: rule.insertText) { _ in onRuleChange() }
             }
-            
+
             VStack(alignment: .leading, spacing: 8) {
                 Text("插入位置 (索引): \(rule.insertPosition)")
                     .font(.caption)
                     .foregroundColor(.secondary)
-                Stepper("", value: $rule.insertPosition, in: 0...100)
+                Stepper("", value: $rule.insertPosition, in: 0 ... 100)
                     .labelsHidden()
                     .onChange(of: rule.insertPosition) { _ in
                         onRuleChange()

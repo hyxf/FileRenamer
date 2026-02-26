@@ -7,7 +7,7 @@ import SwiftUI
 
 struct ContentView: View {
     @StateObject private var viewModel = FileRenamerViewModel()
-    
+
     var body: some View {
         NavigationSplitView {
             sidebar
@@ -16,7 +16,7 @@ struct ContentView: View {
             detailView
         }
         .alert("错误", isPresented: $viewModel.showError) {
-            Button("确定", role: .cancel) { }
+            Button("确定", role: .cancel) {}
         } message: {
             if let error = viewModel.errorMessage {
                 Text(error)
@@ -33,15 +33,16 @@ struct ContentView: View {
                     .background(
                         Capsule()
                             .fill(Color.green) // Fix: .green.gradient -> Color.green
-                            .shadow(color: .black.opacity(0.1), radius: 8, y: 4)
-                    )
+                            .shadow(color: .black.opacity(0.1), radius: 8, y: 4))
                     .padding(.top, 16)
                     .transition(.move(edge: .top).combined(with: .opacity))
-                    .animation(.spring(response: 0.4, dampingFraction: 0.7), value: viewModel.showSuccess)
+                    .animation(
+                        .spring(response: 0.4, dampingFraction: 0.7),
+                        value: viewModel.showSuccess)
             }
         }
     }
-    
+
     private var sidebar: some View {
         VStack(spacing: 0) {
             HStack {
@@ -55,18 +56,18 @@ struct ContentView: View {
             .padding(.horizontal, 16)
             .padding(.top, 16)
             .padding(.bottom, 12)
-            
+
             Divider()
-            
+
             RenameRuleView(rule: $viewModel.rule, onRuleChange: {
                 viewModel.applyRule()
             })
-            
+
             Spacer()
         }
         .background(Color(nsColor: .controlBackgroundColor))
     }
-    
+
     private var detailView: some View {
         VStack(spacing: 0) {
             FileListView(viewModel: viewModel)
@@ -81,29 +82,29 @@ struct ContentView: View {
                     } label: {
                         Label(
                             viewModel.isAllSelected ? "取消全选" : "全选",
-                            systemImage: viewModel.isAllSelected ? "checkmark.circle.fill" : "circle"
-                        )
+                            systemImage: viewModel
+                                .isAllSelected ? "checkmark.circle.fill" : "circle")
                     }
                     .help(viewModel.isAllSelected ? "取消全选" : "选择全部文件")
-                    
+
                     Divider()
-                    
+
                     Button {
                         viewModel.removeSelectedFiles()
                     } label: {
                         Label("移除选中", systemImage: "trash")
                     }
                     .disabled(viewModel.selectedFiles.isEmpty)
-                    
+
                     Button {
                         viewModel.clearAll()
                     } label: {
                         Label("清空列表", systemImage: "xmark.circle")
                     }
-                    
+
                     Divider()
                 }
-                
+
                 Button {
                     Task {
                         await viewModel.executeRename()
@@ -117,7 +118,8 @@ struct ContentView: View {
                     }
                     .padding(.horizontal, 8)
                 }
-                .disabled(!viewModel.hasChanges || viewModel.isProcessing || viewModel.files.isEmpty)
+                .disabled(!viewModel.hasChanges || viewModel.isProcessing || viewModel.files
+                    .isEmpty)
                 .help("应用重命名更改")
             }
         }

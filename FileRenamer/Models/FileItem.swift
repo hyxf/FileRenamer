@@ -12,15 +12,15 @@ struct FileItem: Identifiable, Hashable {
     var originalName: String
     var newName: String
     var isSelected: Bool = true
-    
+
     var fileExtension: String {
         url.pathExtension
     }
-    
+
     var fileType: UTType? {
         UTType(filenameExtension: fileExtension)
     }
-    
+
     var icon: String {
         if let type = fileType {
             if type.conforms(to: .image) {
@@ -41,17 +41,17 @@ struct FileItem: Identifiable, Hashable {
         }
         return "doc"
     }
-    
+
     var hasChanges: Bool {
         originalName != newName
     }
-    
+
     init(url: URL) {
         self.url = url
-        self.originalName = url.lastPathComponent
-        self.newName = url.lastPathComponent
+        originalName = url.lastPathComponent
+        newName = url.lastPathComponent
     }
-    
+
     // 【关键修改】删除了手动的 hash 和 == 实现
     // 让 Swift 自动生成基于所有属性（包括 isSelected）的比较逻辑
     // 这样当选中状态改变时，界面才会检测到变化并刷新
