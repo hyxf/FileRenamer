@@ -1,14 +1,14 @@
 [
-    {
-        "key": "cmd+shift+f",
-        "command": "workbench.action.tasks.runTask",
-        "args": "SwiftFormat: Format Project",
-        "when": "editorLangId == swift"
-    },
-    {
-        "key": "cmd+alt+f",
-        "command": "workbench.action.tasks.runTask",
-        "args": "SwiftFormat: Format Current File",
-        "when": "editorLangId == swift"
-    }
+    // {
+    //     "key": "cmd+shift+f",
+    //     "command": "workbench.action.tasks.runTask",
+    //     "args": "SwiftFormat: Format Project",
+    //     "when": "editorLangId == swift"
+    // },
+    // {
+    //     "key": "cmd+alt+f",
+    //     "command": "workbench.action.tasks.runTask",
+    //     "args": "SwiftFormat: Format Current File",
+    //     "when": "editorLangId == swift"
+    // }
 ]
