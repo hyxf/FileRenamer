@@ -46,7 +46,8 @@
         "**/.build": true,
         "**/DerivedData": true,
         "**/Pods": true,
-        "**/Carthage": true
+        "**/Carthage": true,
+        "**/*.xcodeproj": true,
     },
 
     // =========================
